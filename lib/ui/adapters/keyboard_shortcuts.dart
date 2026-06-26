@@ -23,13 +23,13 @@ class KeyboardShortcutHandler extends StatelessWidget {
       bindings: <ShortcutActivator, VoidCallback>{
         // Formatting
         const SingleActivator(LogicalKeyboardKey.keyB, control: true): () {
-          context.read<FormatBloc>().add(const SetBold(true));
+          context.read<FormatBloc>().add(SetBold(true));
         },
         const SingleActivator(LogicalKeyboardKey.keyI, control: true): () {
-          context.read<FormatBloc>().add(const SetItalic(true));
+          context.read<FormatBloc>().add(SetItalic(true));
         },
         const SingleActivator(LogicalKeyboardKey.keyU, control: true): () {
-          context.read<FormatBloc>().add(const SetUnderline(true));
+          context.read<FormatBloc>().add(SetUnderline(true));
         },
 
         // Clipboard

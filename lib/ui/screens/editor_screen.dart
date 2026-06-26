@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kalima/logic/bloc/document/document_bloc.dart';
-import 'package:kalima/logic/bloc/document/document_state.dart';
 import 'package:kalima/logic/cubit/ui_cubit.dart';
 import 'package:kalima/ui/adapters/keyboard_shortcuts.dart';
 import 'package:kalima/ui/adapters/mouse_handler.dart';
@@ -37,18 +35,10 @@ class EditorScreen extends StatelessWidget {
                     children: [
                       // Ribbon toolbar
                       const RibbonBar(),
-                      // Ruler (optional)
-                      BlocBuilder<DocumentBloc, DocumentState>(
-                        builder: (context, docState) {
-                          final doc = docState is DocumentLoaded
-                              ? docState.document
-                              : null;
-                          if (doc?.showRuler ?? true) {
-                            return const RulerWidget();
-                          }
-                          return const SizedBox.shrink();
-                        },
-                      ),
+                      // Ruler (optional) - visibility controlled by layout settings
+                      uiState.showRuler
+                          ? const RulerWidget()
+                          : const SizedBox.shrink(),
                       // Main editor area with optional sidebar
                       Expanded(
                         child: Row(

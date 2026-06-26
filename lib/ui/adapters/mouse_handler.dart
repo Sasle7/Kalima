@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/editor/editor_bloc.dart';
 
@@ -17,9 +18,10 @@ class MouseHandler extends StatelessWidget {
     return Listener(
       onPointerSignal: (event) {
         if (event is PointerScrollEvent) {
-          context.read<EditorBloc>().add(
-                ScrollBy(delta: event.scrollDelta.dy),
-              );
+          // TODO: Add ScrollBy event to EditorBloc
+          // context.read<EditorBloc>().add(
+          //   ScrollBy(delta: event.scrollDelta.dy),
+          // );
         }
       },
       child: MouseRegion(
@@ -27,9 +29,10 @@ class MouseHandler extends StatelessWidget {
         onHover: (event) {
           // Delegate to editor bloc to determine cursor type
           // based on what's under the pointer
-          context.read<EditorBloc>().add(
-                PointerHovered(position: event.position),
-              );
+          // TODO: Add PointerHovered event to EditorBloc
+          // context.read<EditorBloc>().add(
+          //   PointerHovered(position: event.position),
+          // );
         },
         child: _MouseSelectionHandler(child: child),
       ),
@@ -67,19 +70,21 @@ class _MouseSelectionHandlerState extends State<_MouseSelectionHandler> {
         _lastClickTime = now;
 
         if (_clickCount == 2) {
-          context.read<EditorBloc>().add(
-                WordSelected(
-                  pageIndex: 0,
-                  position: details.localPosition,
-                ),
-              );
+          // TODO: Add WordSelected event to EditorBloc
+          // context.read<EditorBloc>().add(
+          //   WordSelected(
+          //     pageIndex: 0,
+          //     position: details.localPosition,
+          //   ),
+          // );
         } else if (_clickCount >= 3) {
-          context.read<EditorBloc>().add(
-                ParagraphSelected(
-                  pageIndex: 0,
-                  position: details.localPosition,
-                ),
-              );
+          // TODO: Add ParagraphSelected event to EditorBloc
+          // context.read<EditorBloc>().add(
+          //   ParagraphSelected(
+          //     pageIndex: 0,
+          //     position: details.localPosition,
+          //   ),
+          // );
           _clickCount = 0;
         }
       },

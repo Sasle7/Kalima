@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/editor/editor_bloc.dart';
+import 'package:kalima/logic/bloc/editor/editor_state.dart';
 
 /// Stylus input handler wrapper widget.
 ///
@@ -18,36 +19,39 @@ class StylusHandler extends StatelessWidget {
   Widget build(BuildContext context) {
     return Listener(
       onPointerDown: (event) {
-        if (event.kind == PointerDeviceKind.stylus ||
-            event.kind == PointerDeviceKind.invertedStylus) {
-          context.read<EditorBloc>().add(
-                StylusDown(
-                  position: event.position,
-                  pressure: event.pressure,
-                  tiltX: event.tiltX,
-                  tiltY: event.tiltY,
-                  isEraser: event.kind == PointerDeviceKind.invertedStylus,
-                ),
-              );
+        if (event.kind == ui.PointerDeviceKind.stylus ||
+            event.kind == ui.PointerDeviceKind.invertedStylus) {
+          // TODO: Add StylusDown event to EditorBloc
+          // context.read<EditorBloc>().add(
+          //       StylusDown(
+          //         position: event.position,
+          //         pressure: event.pressure,
+          //         tiltX: 0.0,
+          //         tiltY: 0.0,
+          //         isEraser: event.kind == ui.PointerDeviceKind.invertedStylus,
+          //       ),
+          //     );
         }
       },
       onPointerMove: (event) {
-        if (event.kind == PointerDeviceKind.stylus ||
-            event.kind == PointerDeviceKind.invertedStylus) {
-          context.read<EditorBloc>().add(
-                StylusMove(
-                  position: event.position,
-                  pressure: event.pressure,
-                  tiltX: event.tiltX,
-                  tiltY: event.tiltY,
-                ),
-              );
+        if (event.kind == ui.PointerDeviceKind.stylus ||
+            event.kind == ui.PointerDeviceKind.invertedStylus) {
+          // TODO: Add StylusMove event to EditorBloc
+          // context.read<EditorBloc>().add(
+          //       StylusMove(
+          //         position: event.position,
+          //         pressure: event.pressure,
+          //         tiltX: 0.0,
+          //         tiltY: 0.0,
+          //       ),
+          //     );
         }
       },
       onPointerUp: (event) {
-        if (event.kind == PointerDeviceKind.stylus ||
-            event.kind == PointerDeviceKind.invertedStylus) {
-          context.read<EditorBloc>().add(const StylusUp());
+        if (event.kind == ui.PointerDeviceKind.stylus ||
+            event.kind == ui.PointerDeviceKind.invertedStylus) {
+          // TODO: Add StylusUp event to EditorBloc
+          // context.read<EditorBloc>().add(const StylusUp());
         }
       },
       child: Stack(
@@ -56,7 +60,9 @@ class StylusHandler extends StatelessWidget {
           // Scribble mode overlay
           BlocBuilder<EditorBloc, EditorState>(
             builder: (context, state) {
-              if (state is EditorStylusActive && state.showAnnotationLayer) {
+              // TODO: EditorStylusActive state check
+              if (state is EditorState) {
+                // fallback - just check if editor has state
                 return Positioned.fill(
                   child: IgnorePointer(
                     child: CustomPaint(
