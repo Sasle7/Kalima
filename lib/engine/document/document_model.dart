@@ -1,6 +1,9 @@
 import 'dart:ui';
 
 import 'package:kalima/engine/document/delta_format.dart';
+import 'package:uuid/uuid.dart';
+
+const _uuid = Uuid();
 
 enum BlockType {
   paragraph,
@@ -572,7 +575,7 @@ class DocumentModel {
 
   factory DocumentModel.empty() {
     return DocumentModel(
-      id: '',
+      id: _uuid.v4(),
       title: '',
       blocks: [],
       metadata: DocumentMetadata.empty,

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
 import 'package:kalima/logic/bloc/document/document_state.dart';
 import 'package:kalima/logic/bloc/document/document_event.dart';
+import 'package:kalima/ui/screens/editor_screen.dart';
 
 /// Main home screen for Kalima word processor.
 ///
@@ -39,12 +40,19 @@ class HomeScreen extends StatelessWidget {
             icon: const Icon(Icons.settings_outlined),
             color: const Color(0xFF1A1A2E),
             tooltip: 'الإعدادات',
-            onPressed: () {},
+            onPressed: () => _showSettingsDialog(context),
           ),
           const SizedBox(width: 8),
         ],
       ),
-      body: BlocBuilder<DocumentBloc, DocumentState>(
+      body: BlocConsumer<DocumentBloc, DocumentState>(
+        listener: (context, state) {
+          if (state is DocumentLoaded && state.document.id.isNotEmpty) {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const EditorScreen()),
+            );
+          }
+        },
         builder: (context, state) {
           return Column(
             children: [
@@ -186,6 +194,80 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showSettingsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: const Row(
+            children: [
+              Icon(Icons.info_outline, color: Color(0xFF1A1A2E)),
+              SizedBox(width: 12),
+              Text(
+                'عن كلمة',
+                style: TextStyle(
+                  fontFamily: 'Amiri',
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF1A1A2E),
+                ),
+              ),
+            ],
+          ),
+          content: const Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'كلمة',
+                style: TextStyle(
+                  fontFamily: 'Amiri',
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFE5B143),
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'معالج نصوص عربي متكامل للأجهزة اللوحية',
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 16,
+                  color: Color(0xFF555555),
+                ),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'الإصدار: 1.0.0',
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  fontSize: 14,
+                  color: Color(0xFF888888),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              style: TextButton.styleFrom(
+                foregroundColor: const Color(0xFF1A1A2E),
+              ),
+              child: const Text(
+                'حسناً',
+                style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w600),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
