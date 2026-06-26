@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
               _buildActionBar(context),
               const SizedBox(height: 8),
               Expanded(
-                child: state is DocumentsLoaded && state.documents.isNotEmpty
+                child: state is DocumentLoaded && state.document.id.isNotEmpty
                     ? _buildRecentDocumentsGrid(context, state)
                     : _buildEmptyState(context),
               ),
@@ -108,26 +108,16 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecentDocumentsGrid(BuildContext context, DocumentsLoaded state) {
+  Widget _buildRecentDocumentsGrid(BuildContext context, DocumentLoaded state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 0.8,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-        ),
-        itemCount: state.documents.length,
-        itemBuilder: (context, index) {
-          final doc = state.documents[index];
-          return _DocumentCard(
-            filename: doc.filename,
-            lastModified: doc.lastModified,
-            onTap: () {
-              context.read<DocumentBloc>().add(OpenDocument(doc.id));
-            },
-          );
+      child: _DocumentCard(
+        filename: state.document.title.isNotEmpty ? state.document.title : 'untitled',
+        lastModified: state.document.modifiedAt,
+        onTap: () {
+          if (state.filePath != null) {
+            context.read<DocumentBloc>().add(OpenDocument(state.filePath!));
+          }
         },
       ),
     );

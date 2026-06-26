@@ -569,6 +569,58 @@ class DocumentModel {
   }
 
   String toJsonString() => toJson().toString();
+
+  factory DocumentModel.empty() {
+    return DocumentModel(
+      id: '',
+      title: '',
+      blocks: [],
+      metadata: DocumentMetadata.empty,
+      styles: [],
+      isRtl: true,
+    );
+  }
+
+  String get text {
+    return blocks
+        .where((b) => b.type == BlockType.paragraph ||
+            b.type == BlockType.heading1 ||
+            b.type == BlockType.heading2 ||
+            b.type == BlockType.heading3 ||
+            b.type == BlockType.quote ||
+            b.type == BlockType.listItem)
+        .map((b) => b.textRuns.map((t) => t.text).join())
+        .join('\n');
+  }
+
+  DocumentModel applyDelta(Delta delta) {
+    final plainText = delta.plainText;
+    if (plainText == null || plainText.isEmpty) return this;
+
+    final newBlocks = List<DocumentBlock>.from(blocks);
+    final lines = plainText.split('\n');
+    for (final line in lines) {
+      if (line.isNotEmpty) {
+        newBlocks.add(DocumentBlock(
+          id: DateTime.now().microsecondsSinceEpoch.toRadixString(36),
+          type: BlockType.paragraph,
+          textRuns: [TextRun(line)],
+          format: BlockFormat(isRtl: isRtl),
+        ));
+      }
+    }
+
+    return DocumentModel(
+      id: id,
+      title: title,
+      blocks: newBlocks,
+      metadata: metadata,
+      styles: styles,
+      createdAt: createdAt,
+      modifiedAt: DateTime.now(),
+      isRtl: isRtl,
+    );
+  }
 }
 
 class PageMargins {

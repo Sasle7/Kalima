@@ -128,7 +128,6 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
 
       dividerTheme: const DividerThemeData(
@@ -241,15 +240,6 @@ class AppTheme {
         labelType: NavigationRailLabelType.none,
         minExtendedWidth: sidebarWidth,
         groupAlignment: 0,
-        iconTheme: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return const IconThemeData(
-              color: focusColor,
-              size: toolbarIconSize,
-            );
-          }
-          return const IconThemeData(color: iconColor, size: toolbarIconSize);
-        }),
         selectedIconTheme: const IconThemeData(
           color: focusColor,
           size: toolbarIconSize,
@@ -284,7 +274,6 @@ class AppTheme {
         valueIndicatorColor: focusColor,
         valueIndicatorTextStyle: const TextStyle(color: Colors.white),
         trackHeight: 2,
-        minTouchTargetSize: minTouchTarget,
       ),
 
       snackBarTheme: SnackBarThemeData(
@@ -296,7 +285,7 @@ class AppTheme {
         ),
       ),
 
-      tabBarTheme: const TabBarTheme(
+      tabBarTheme: const TabBarThemeData(
         labelColor: textPrimary,
         unselectedLabelColor: textSecondary,
         indicatorColor: focusColor,

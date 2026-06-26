@@ -19,7 +19,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
   void _onInsertText(InsertText event, Emitter<EditorState> emit) {
     if (event.text.isEmpty) return;
 
-    final delta = Delta.insert(event.position, event.text);
+    final delta = Delta.insertAt(event.position, event.text);
     final updatedDocument = state.document.applyDelta(delta);
     final newCursorPos = event.position + event.text.length;
 
@@ -42,7 +42,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     if (start >= state.document.text.length || start < 0 || end <= start) return;
 
     final deletedText = state.document.text.substring(start, end);
-    final delta = Delta.delete(start, deletedText);
+    final delta = Delta.deleteAt(start, deletedText);
     final updatedDocument = state.document.applyDelta(delta);
 
     final undoStack = _pushUndo(delta);
@@ -89,7 +89,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
       add(DeleteText(state.effectiveSelectionStart, state.effectiveSelectionEnd));
     }
 
-    final delta = Delta.insert(pastePosition, event.text);
+    final delta = Delta.insertAt(pastePosition, event.text);
     final updatedDocument = state.document.applyDelta(delta);
     final newCursorPos = pastePosition + event.text.length;
 
@@ -111,7 +111,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
 
     if (start >= state.document.text.length || start < 0 || end > state.document.text.length || end <= start) return;
 
-    final delta = Delta.delete(start, state.document.text.substring(start, end));
+    final delta = Delta.deleteAt(start, state.document.text.substring(start, end));
     final updatedDocument = state.document.applyDelta(delta);
 
     final undoStack = _pushUndo(delta);

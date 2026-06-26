@@ -427,6 +427,73 @@ class Delta extends Equatable {
     return Delta([...operations, ...other.operations]);
   }
 
+  /// Creates a single-operation insert delta at [position] with [text].
+  factory Delta.insertAt(int position, String text, {TextAttributes? attributes}) {
+    if (position > 0) {
+      return Delta([
+        RetainOperation(position),
+        InsertOperation.text(text, attributes: attributes),
+      ]);
+    }
+    return Delta([InsertOperation.text(text, attributes: attributes)]);
+  }
+
+  /// Creates a single-operation delete delta at [position] with the given [text] length.
+  factory Delta.deleteAt(int position, String deletedText) {
+    if (position > 0) {
+      return Delta([
+        RetainOperation(position),
+        DeleteOperation(deletedText.length),
+      ]);
+    }
+    return Delta([DeleteOperation(deletedText.length)]);
+  }
+
+  Delta get reversed {
+    if (operations.isEmpty) return const Delta();
+    final newOps = <Operation>[];
+    for (final op in operations) {
+      if (op is InsertOperation) {
+        newOps.add(DeleteOperation(op.length));
+      } else if (op is DeleteOperation) {
+        newOps.add(InsertOperation.text('[restored]'));
+      } else if (op is RetainOperation) {
+        newOps.add(RetainOperation(op.length, op.attributes));
+      }
+    }
+    return Delta(newOps);
+  }
+
+  DeltaOperation? get operation {
+    if (operations.isEmpty) return null;
+    final first = operations.first;
+    if (first is InsertOperation) return DeltaOperation.insert;
+    if (first is DeleteOperation) return DeltaOperation.delete;
+    if (first is RetainOperation) return DeltaOperation.retain;
+    return null;
+  }
+
+  int get position {
+    int pos = 0;
+    for (final op in operations) {
+      if (op is RetainOperation) {
+        pos += op.retain;
+      } else {
+        break;
+      }
+    }
+    return pos;
+  }
+
+  String? get text {
+    for (final op in operations) {
+      if (op is InsertOperation && op.isText) {
+        return op.text;
+      }
+    }
+    return null;
+  }
+
   List<TextAttributes> toAttributeRuns() {
     final runs = <TextAttributes>[];
     for (final op in operations) {
@@ -693,3 +760,5 @@ class FormatRange extends Equatable {
 }
 
 enum TextAlignHorizontal { left, right, center, justify }
+
+enum DeltaOperation { insert, delete, retain }
