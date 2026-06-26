@@ -64,6 +64,17 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
+      - name: Fix isar_flutter_libs namespace for AGP 8+
+        run: |
+          ISAR_DIR="$PUB_CACHE/hosted/pub.dev/isar_flutter_libs-3.1.0+1"
+          if [ -f "$ISAR_DIR/android/build.gradle" ]; then
+            echo "Patching isar_flutter_libs namespace..."
+            sed -i 's/^android {/android {\n    namespace = "com.isar.flutter_libs"/' "$ISAR_DIR/android/build.gradle"
+          else
+            echo "isar_flutter_libs not found at $ISAR_DIR, checking alternatives..."
+            find "$PUB_CACHE/hosted/pub.dev" -name "isar_flutter_libs*" -type d 2>/dev/null
+          fi
+
       - name: Analyze
         run: flutter analyze
         continue-on-error: true
