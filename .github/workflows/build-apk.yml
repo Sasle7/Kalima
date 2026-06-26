@@ -53,12 +53,17 @@ jobs:
           if [ ! -d "android" ]; then
             flutter create --platforms android .
           fi
-          # Update compileSdk to 36 for AGP compatibility
-          sed -i 's/compileSdk = flutter.compileSdkVersion/compileSdk = 36/' android/app/build.gradle.kts
-          # Also update targetSdk
-          sed -i 's/targetSdk = flutter.targetSdkVersion/targetSdk = 36/' android/app/build.gradle.kts
-          # Update ndkVersion to a compatible version
-          sed -i 's/ndkVersion = flutter.ndkVersion/ndkVersion = "27.0.12077973"/' android/app/build.gradle.kts
+          # Fix compileSdk, targetSdk and ndkVersion for AGP/plugin compatibility
+          echo "Patching android/app/build.gradle.kts for SDK versions..."
+          awk '{
+            gsub(/compileSdk = flutter.compileSdkVersion/, "compileSdk = 36");
+            gsub(/targetSdk = flutter.targetSdkVersion/, "targetSdk = 36");
+            gsub(/ndkVersion = flutter.ndkVersion/, "ndkVersion = \"28.2.13676358\"");
+            print
+          }' android/app/build.gradle.kts > android/app/build.gradle.kts.tmp
+          mv android/app/build.gradle.kts.tmp android/app/build.gradle.kts
+          echo "Patched file content:"
+          head -30 android/app/build.gradle.kts
 
       - name: Get dependencies
         run: flutter pub get
