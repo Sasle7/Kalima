@@ -83,6 +83,8 @@ jobs:
         run: |
           if [ -f "icon.png" ]; then
             echo "=== Generating app icons from icon.png ==="
+            # Install ImageMagick for icon resizing
+            sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
             # Android mipmap icons at standard densities
             convert icon.png -resize 48x48   android/app/src/main/res/mipmap-mdpi/ic_launcher.png
             convert icon.png -resize 72x72   android/app/src/main/res/mipmap-hdpi/ic_launcher.png
