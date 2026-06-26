@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
+import 'package:kalima/logic/bloc/document/document_state.dart';
+import 'package:kalima/logic/bloc/document/document_event.dart';
 
 /// Main home screen for Kalima word processor.
 ///
@@ -87,7 +89,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(width: 16),
           OutlinedButton.icon(
             onPressed: () {
-              context.read<DocumentBloc>().add(const OpenFileRequested());
+              context.read<DocumentBloc>().add(OpenFileRequested());
             },
 
             style: OutlinedButton.styleFrom(
@@ -216,7 +218,7 @@ class HomeScreen extends StatelessWidget {
                 label: 'مستند فارغ',
                 onTap: () {
                   Navigator.pop(ctx);
-                  context.read<DocumentBloc>().add(const CreateNewDocument());
+                  context.read<DocumentBloc>().add(CreateNewDocument());
                 },
               ),
               const Divider(height: 1),
@@ -225,7 +227,7 @@ class HomeScreen extends StatelessWidget {
                 label: 'تقرير',
                 onTap: () {
                   Navigator.pop(ctx);
-                  context.read<DocumentBloc>().add(const CreateNewDocument(template: 'report'));
+                  context.read<DocumentBloc>().add(CreateNewDocument(template: 'report'));
                 },
               ),
               const Divider(height: 1),
@@ -234,7 +236,7 @@ class HomeScreen extends StatelessWidget {
                 label: 'رسالة',
                 onTap: () {
                   Navigator.pop(ctx);
-                  context.read<DocumentBloc>().add(const CreateNewDocument(template: 'letter'));
+                  context.read<DocumentBloc>().add(CreateNewDocument(template: 'letter'));
                 },
               ),
               const Divider(height: 1),
@@ -243,7 +245,7 @@ class HomeScreen extends StatelessWidget {
                 label: 'سيرة ذاتية',
                 onTap: () {
                   Navigator.pop(ctx);
-                  context.read<DocumentBloc>().add(const CreateNewDocument(template: 'resume'));
+                  context.read<DocumentBloc>().add(CreateNewDocument(template: 'resume'));
                 },
               ),
               const SizedBox(height: 8),
