@@ -89,6 +89,7 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               context.read<DocumentBloc>().add(const OpenFileRequested());
             },
+
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFF1A1A2E),
               side: const BorderSide(color: Color(0xFF1A1A2E)),
@@ -224,7 +225,7 @@ class HomeScreen extends StatelessWidget {
                 label: 'تقرير',
                 onTap: () {
                   Navigator.pop(ctx);
-                  context.read<DocumentBloc>().add(const CreateFromTemplate('report'));
+                  context.read<DocumentBloc>().add(const CreateNewDocument(template: 'report'));
                 },
               ),
               const Divider(height: 1),
@@ -233,7 +234,7 @@ class HomeScreen extends StatelessWidget {
                 label: 'رسالة',
                 onTap: () {
                   Navigator.pop(ctx);
-                  context.read<DocumentBloc>().add(const CreateFromTemplate('letter'));
+                  context.read<DocumentBloc>().add(const CreateNewDocument(template: 'letter'));
                 },
               ),
               const Divider(height: 1),
@@ -242,7 +243,7 @@ class HomeScreen extends StatelessWidget {
                 label: 'سيرة ذاتية',
                 onTap: () {
                   Navigator.pop(ctx);
-                  context.read<DocumentBloc>().add(const CreateFromTemplate('resume'));
+                  context.read<DocumentBloc>().add(const CreateNewDocument(template: 'resume'));
                 },
               ),
               const SizedBox(height: 8),

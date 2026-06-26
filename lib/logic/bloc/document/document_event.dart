@@ -50,3 +50,10 @@ final class CloseDocument extends DocumentEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class OpenFileRequested extends DocumentEvent {
+  const OpenFileRequested();
+
+  @override
+  List<Object?> get props => [];
+}

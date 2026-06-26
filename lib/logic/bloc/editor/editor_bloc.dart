@@ -204,7 +204,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     final start = state.effectiveSelectionStart;
     final end = state.effectiveSelectionEnd;
 
-    final delta = Delta.retain(start, length: end - start, attributes: attributes);
+    final delta = Delta([RetainOperation(end - start, TextAttributes.fromJson(attributes))]);
     final updatedDocument = state.document.applyDelta(delta);
 
     final undoStack = _pushUndo(delta);

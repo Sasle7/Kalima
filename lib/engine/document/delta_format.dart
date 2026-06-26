@@ -234,7 +234,7 @@ class TextAttributes extends Equatable {
       result['indent'] = other.indent;
     }
     if (align != other.align && other.align != null) {
-      result['align'] = other.align.name;
+      result['align'] = other.align!.name;
     }
     return TextAttributes.fromJson(result);
   }
