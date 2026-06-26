@@ -42,20 +42,57 @@ jobs:
 
       - name: Create android platform files
         run: |
-          if [ ! -d "android" ]; then
-            flutter create --platforms android .
-          fi
-          # Fix compileSdk and targetSdk to 36 (flutter_plugin_android_lifecycle requires 36)
-          # flutter.create generates compileSdk = flutter.compileSdkVersion (which is 34)
-          echo "Before patching:"
+          flutter create --platforms android .
+
+          # 1. Fix build.gradle.kts: compileSdk, namespace, applicationId
+          echo "=== Fixing app build.gradle.kts ==="
           head -20 android/app/build.gradle.kts
           sed -i 's/compileSdk = flutter\.compileSdkVersion/compileSdk = 36/' android/app/build.gradle.kts
           sed -i 's/targetSdk = flutter\.targetSdkVersion/targetSdk = 36/' android/app/build.gradle.kts
           sed -i 's/minSdk = flutter\.minSdkVersion/minSdk = 21/' android/app/build.gradle.kts
           sed -i 's/namespace = "com\.example\.kalima"/namespace = "com.kalima.app"/' android/app/build.gradle.kts
           sed -i 's/applicationId = "com\.example\.kalima"/applicationId = "com.kalima.app"/' android/app/build.gradle.kts
-          echo "After patching:"
+          echo "After:"
           head -25 android/app/build.gradle.kts
+
+          # 2. Fix AndroidManifest.xml: update package and activity to match namespace
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          echo "=== Fixing AndroidManifest.xml ==="
+          cat "$MANIFEST"
+          # Update package attribute to match namespace
+          sed -i 's/package="com\.example\.kalima"/package="com.kalima.app"/' "$MANIFEST"
+          # Ensure activity uses full class name (in case no package attr in newer Flutter)
+          sed -i 's|android:name="\.MainActivity"|android:name="com.kalima.app.MainActivity"|' "$MANIFEST"
+
+          # 3. Move MainActivity.kt to correct package directory
+          OLD_ACTIVITY="android/app/src/main/kotlin/com/example/kalima/MainActivity.kt"
+          NEW_ACTIVITY_DIR="android/app/src/main/kotlin/com/kalima/app"
+          if [ -f "$OLD_ACTIVITY" ]; then
+            echo "=== Moving MainActivity.kt to new package ==="
+            mkdir -p "$NEW_ACTIVITY_DIR"
+            sed 's/package com\.example\.kalima/package com.kalima.app/' "$OLD_ACTIVITY" > "$NEW_ACTIVITY_DIR/MainActivity.kt"
+            rm "$OLD_ACTIVITY"
+            # Remove old empty directory if possible
+            rmdir "android/app/src/main/kotlin/com/example/kalima" 2>/dev/null || true
+            rmdir "android/app/src/main/kotlin/com/example" 2>/dev/null || true
+            echo "New MainActivity.kt:"
+            cat "$NEW_ACTIVITY_DIR/MainActivity.kt"
+          fi
+
+      - name: Generate app icons from icon.png
+        run: |
+          if [ -f "icon.png" ]; then
+            echo "=== Generating app icons from icon.png ==="
+            # Android mipmap icons at standard densities
+            convert icon.png -resize 48x48   android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+            convert icon.png -resize 72x72   android/app/src/main/res/mipmap-hdpi/ic_launcher.png
+            convert icon.png -resize 96x96   android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
+            convert icon.png -resize 144x144 android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+            convert icon.png -resize 192x192 android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+            echo "Icons generated successfully"
+          else
+            echo "Warning: icon.png not found, using default Flutter icon"
+          fi
 
       - name: Get dependencies
         run: flutter pub get
