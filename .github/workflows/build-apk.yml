@@ -60,45 +60,34 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Patch plugin build.gradle files for AGP 8+
+      - name: Patch plugin build.gradle files for AGP 8+ compatibility
         run: |
-          # 1. Fix isar_flutter_libs: add namespace + bump compileSdk to 36
-          ISAR_DIR="$PUB_CACHE/hosted/pub.dev/isar_flutter_libs-3.1.0+1"
-          ISAR_BUILD="$ISAR_DIR/android/build.gradle"
-          if [ -f "$ISAR_BUILD" ]; then
-            echo "=== Patching isar_flutter_libs ==="
-            sed -i 's/^android {/android {\n    namespace = "com.isar.flutter_libs"/' "$ISAR_BUILD"
-            echo "  compileSdk line(s): $(grep -n 'compileSdk' "$ISAR_BUILD")"
-            sed -i 's/compileSdk [0-9][0-9]/compileSdk 36/' "$ISAR_BUILD"
-            sed -i 's/compileSdkVersion [0-9][0-9]/compileSdkVersion 36/' "$ISAR_BUILD"
-            echo "  -> after patch: $(grep -n 'compileSdk' "$ISAR_BUILD")"
-          fi
-          ISAR_MANIFEST="$ISAR_DIR/android/src/main/AndroidManifest.xml"
+          echo "=== Bumping compileSdk to 36 in all plugin build.gradle files ==="
+          # Find all build.gradle files in pub cache that have compileSdk < 36
+          for gradle_file in $(find "$PUB_CACHE/hosted/pub.dev" -name "build.gradle" -path "*/android/*" 2>/dev/null); do
+            # Get the current compileSdk value
+            current_sdk=$(grep -oP 'compileSdk(?:Version)?\s+(?:\d+)' "$gradle_file" | grep -oP '\d+' | head -1)
+            if [ -n "$current_sdk" ] && [ "$current_sdk" -lt 36 ] 2>/dev/null; then
+              echo "  Patching $gradle_file (compileSdk=$current_sdk -> 36)"
+              sed -i 's/compileSdk [0-9][0-9]/compileSdk 36/' "$gradle_file"
+              sed -i 's/compileSdkVersion [0-9][0-9]/compileSdkVersion 36/' "$gradle_file"
+              # Also add namespace if missing (for AGP 8+)
+              if ! grep -q "namespace" "$gradle_file"; then
+                pkg_name=$(basename $(dirname $(dirname "$gradle_file")) | sed 's/-[0-9].*//' | tr '-' '_')
+                sed -i 's/^android {/android {\n    namespace = "com.plugin.'"$pkg_name"'"/' "$gradle_file"
+                echo "    Added namespace to $gradle_file"
+              fi
+            fi
+          done
+
+          # Special fix: isar_flutter_libs needs its AndroidManifest.xml package attr removed
+          ISAR_MANIFEST="$PUB_CACHE/hosted/pub.dev/isar_flutter_libs-3.1.0+1/android/src/main/AndroidManifest.xml"
           if [ -f "$ISAR_MANIFEST" ]; then
-            echo "  Removing package attr from AndroidManifest.xml..."
+            echo "=== Fixing isar_flutter_libs AndroidManifest.xml ==="
             sed -i 's/package="dev.isar.isar_flutter_libs"//' "$ISAR_MANIFEST"
           fi
 
-          # 2. Fix file_picker: bump compileSdk to 36
-          FP_DIR="$PUB_CACHE/hosted/pub.dev/file_picker-8.3.7"
-          FP_BUILD="$FP_DIR/android/build.gradle"
-          if [ -f "$FP_BUILD" ]; then
-            echo "=== Patching file_picker ==="
-            echo "  before: $(grep -n 'compileSdk' "$FP_BUILD")"
-            sed -i 's/compileSdk [0-9][0-9]/compileSdk 36/' "$FP_BUILD"
-            sed -i 's/compileSdkVersion [0-9][0-9]/compileSdkVersion 36/' "$FP_BUILD"
-            echo "  after:  $(grep -n 'compileSdk' "$FP_BUILD")"
-          fi
-
-          # 3. Disable AAR metadata check in root gradle.properties
-          echo "android.disableAarMetadata=true" >> android/gradle.properties
-          echo "=== gradle.properties ==="
-          grep -v "^#" android/gradle.properties | grep -v "^$"
-
-          # 4. Add disableAarMetadata to app build.gradle.kts as well
-          echo "=== Adding disableAarMetadata to app build.gradle.kts ==="
-          sed -i '/^android {/a\    disableAarMetadata = true' android/app/build.gradle.kts
-          head -10 android/app/build.gradle.kts
+          echo "=== All patches applied ==="
 
       - name: Analyze
         run: flutter analyze
