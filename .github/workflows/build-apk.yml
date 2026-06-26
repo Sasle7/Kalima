@@ -53,26 +53,22 @@ jobs:
           if [ ! -d "android" ]; then
             flutter create --platforms android .
           fi
-          # Fix: Namespace for AGP 8+ compatibility
-          # Add namespace to app/build.gradle.kts if missing
-          if ! grep -q "namespace" android/app/build.gradle.kts 2>/dev/null; then
-            sed -i 's/android {/android {\n    namespace = "com.kalima.app"/' android/app/build.gradle.kts
-          fi
-          # Enable namespace migration for library dependencies (isar_flutter_libs)
-          echo "android.namespaceMigration=true" >> android/gradle.properties
 
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Fix isar_flutter_libs namespace for AGP 8+
+      - name: Fix isar_flutter_libs for AGP 8+
         run: |
           ISAR_DIR="$PUB_CACHE/hosted/pub.dev/isar_flutter_libs-3.1.0+1"
-          if [ -f "$ISAR_DIR/android/build.gradle" ]; then
-            echo "Patching isar_flutter_libs namespace..."
-            sed -i 's/^android {/android {\n    namespace = "com.isar.flutter_libs"/' "$ISAR_DIR/android/build.gradle"
-          else
-            echo "isar_flutter_libs not found at $ISAR_DIR, checking alternatives..."
-            find "$PUB_CACHE/hosted/pub.dev" -name "isar_flutter_libs*" -type d 2>/dev/null
+          MANIFEST="$ISAR_DIR/android/src/main/AndroidManifest.xml"
+          BUILD_GRADLE="$ISAR_DIR/android/build.gradle"
+          if [ -f "$BUILD_GRADLE" ]; then
+            echo "Adding namespace to isar_flutter_libs build.gradle..."
+            sed -i 's/^android {/android {\n    namespace = "com.isar.flutter_libs"/' "$BUILD_GRADLE"
+          fi
+          if [ -f "$MANIFEST" ]; then
+            echo "Removing package attr from isar_flutter_libs AndroidManifest.xml..."
+            sed -i 's/package="dev.isar.isar_flutter_libs"//' "$MANIFEST"
           fi
 
       - name: Analyze
