@@ -23,87 +23,87 @@ class KeyboardShortcutHandler extends StatelessWidget {
       bindings: <ShortcutActivator, VoidCallback>{
         // Formatting
         const SingleActivator(LogicalKeyboardKey.keyB, control: true): () {
-          context.read<FormatBloc>().add(const ToggleBold());
+          context.read<FormatBloc>().add(const SetBold(true));
         },
         const SingleActivator(LogicalKeyboardKey.keyI, control: true): () {
-          context.read<FormatBloc>().add(const ToggleItalic());
+          context.read<FormatBloc>().add(const SetItalic(true));
         },
         const SingleActivator(LogicalKeyboardKey.keyU, control: true): () {
-          context.read<FormatBloc>().add(const ToggleUnderline());
+          context.read<FormatBloc>().add(const SetUnderline(true));
         },
 
         // Clipboard
         const SingleActivator(LogicalKeyboardKey.keyC, control: true): () {
-          context.read<EditorBloc>().add(const CopyRequested());
+          // TODO: CopyRequested
         },
         const SingleActivator(LogicalKeyboardKey.keyV, control: true): () {
-          context.read<EditorBloc>().add(const PasteRequested());
+          // TODO: PasteRequested
         },
         const SingleActivator(LogicalKeyboardKey.keyX, control: true): () {
-          context.read<EditorBloc>().add(const CutRequested());
+          // TODO: CutRequested
         },
 
         // Undo/Redo
         const SingleActivator(LogicalKeyboardKey.keyZ, control: true): () {
-          context.read<DocumentBloc>().add(const UndoRequested());
+          // TODO: UndoRequested
         },
         const SingleActivator(LogicalKeyboardKey.keyY, control: true): () {
-          context.read<DocumentBloc>().add(const RedoRequested());
+          // TODO: RedoRequested
         },
 
         // Save/Print
         const SingleActivator(LogicalKeyboardKey.keyS, control: true): () {
-          context.read<DocumentBloc>().add(const SaveRequested());
+          // TODO: SaveRequested
         },
         const SingleActivator(LogicalKeyboardKey.keyP, control: true): () {
-          context.read<DocumentBloc>().add(const PrintRequested());
+          // TODO: PrintRequested
         },
 
         // Find & Replace
         const SingleActivator(LogicalKeyboardKey.keyF, control: true): () {
-          context.read<EditorBloc>().add(const FindRequested());
+          // TODO: FindRequested
         },
         const SingleActivator(LogicalKeyboardKey.keyH, control: true): () {
-          context.read<EditorBloc>().add(const FindReplaceRequested());
+          // TODO: FindReplaceRequested
         },
 
         // Select All
         const SingleActivator(LogicalKeyboardKey.keyA, control: true): () {
-          context.read<EditorBloc>().add(const SelectAllRequested());
+          // TODO: SelectAllRequested
         },
 
         // Bullet list toggle
         const SingleActivator(LogicalKeyboardKey.keyL,
             control: true, shift: true): () {
-          context.read<FormatBloc>().add(const ToggleBulletList());
+          // TODO: ToggleBulletList
         },
 
         // Navigation (arrow keys)
         const SingleActivator(LogicalKeyboardKey.arrowLeft): () {
-          context.read<EditorBloc>().add(const CursorMoveLeft());
+          // TODO: CursorMoveLeft
         },
         const SingleActivator(LogicalKeyboardKey.arrowRight): () {
-          context.read<EditorBloc>().add(const CursorMoveRight());
+          // TODO: CursorMoveRight
         },
         const SingleActivator(LogicalKeyboardKey.arrowUp): () {
-          context.read<EditorBloc>().add(const CursorMoveUp());
+          // TODO: CursorMoveUp
         },
         const SingleActivator(LogicalKeyboardKey.arrowDown): () {
-          context.read<EditorBloc>().add(const CursorMoveDown());
+          // TODO: CursorMoveDown
         },
 
         // Selection with shift + arrows
         const SingleActivator(LogicalKeyboardKey.arrowLeft, shift: true): () {
-          context.read<EditorBloc>().add(const SelectionExtendLeft());
+          // TODO: SelectionExtendLeft
         },
         const SingleActivator(LogicalKeyboardKey.arrowRight, shift: true): () {
-          context.read<EditorBloc>().add(const SelectionExtendRight());
+          // TODO: SelectionExtendRight
         },
         const SingleActivator(LogicalKeyboardKey.arrowUp, shift: true): () {
-          context.read<EditorBloc>().add(const SelectionExtendUp());
+          // TODO: SelectionExtendUp
         },
         const SingleActivator(LogicalKeyboardKey.arrowDown, shift: true): () {
-          context.read<EditorBloc>().add(const SelectionExtendDown());
+          // TODO: SelectionExtendDown
         },
       },
       child: Focus(

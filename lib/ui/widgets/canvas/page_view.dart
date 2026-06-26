@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
+import 'package:kalima/logic/bloc/document/document_state.dart';
 import 'package:kalima/logic/bloc/editor/editor_bloc.dart';
+import 'package:kalima/logic/bloc/editor/editor_state.dart';
 
 /// Individual document page view.
 ///
@@ -82,15 +84,14 @@ class DocumentPageView extends StatelessWidget {
                     ),
                   ),
                   // Cursor overlay
-                  if (editorState is EditorEditing &&
-                      editorState.cursorPage == pageIndex)
+                  if (editorState.isEditing)
                     Positioned(
-                      left: editorState.cursorPosition.dx,
-                      top: editorState.cursorPosition.dy,
+                      left: 0, // TODO: derive x from cursorPosition
+                      top: 0, // TODO: derive y from cursorPosition
                       child: _buildCursor(editorState),
                     ),
                   // Selection overlay
-                  if (editorState is EditorEditing &&
+                  if (editorState.isEditing &&
                       editorState.selectionStart != null &&
                       editorState.selectionEnd != null)
                     _buildSelectionOverlay(editorState),
@@ -144,7 +145,7 @@ class DocumentPageView extends StatelessWidget {
     return const SizedBox.expand();
   }
 
-  Widget _buildCursor(EditorEditing state) {
+  Widget _buildCursor(EditorState state) {
     return AnimatedOpacity(
       opacity: 1,
       duration: const Duration(milliseconds: 500),
@@ -156,16 +157,19 @@ class DocumentPageView extends StatelessWidget {
     );
   }
 
-  Widget _buildSelectionOverlay(EditorEditing state) {
+  Widget _buildSelectionOverlay(EditorState state) {
     if (state.selectionStart == null || state.selectionEnd == null) {
       return const SizedBox.shrink();
     }
+    // TODO: convert text indices to pixel positions using text layout
+    final startX = state.selectionStart!.toDouble();
+    final endX = state.selectionEnd!.toDouble();
     return Positioned.fill(
       child: IgnorePointer(
         child: CustomPaint(
           painter: _SelectionPainter(
-            start: state.selectionStart!,
-            end: state.selectionEnd!,
+            start: Offset(startX, 0),
+            end: Offset(endX, 0),
           ),
         ),
       ),

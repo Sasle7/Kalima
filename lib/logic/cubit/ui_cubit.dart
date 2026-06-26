@@ -3,6 +3,8 @@ import 'package:equatable/equatable.dart';
 
 enum SidebarType { comments, styles }
 
+enum RibbonTab { home, insert, layout, review }
+
 class UiState extends Equatable {
   final bool isRibbonExpanded;
   final String activeTab;
@@ -19,6 +21,11 @@ class UiState extends Equatable {
     this.sidebarType,
     this.zoomLevel = 1.0,
   });
+
+  RibbonTab? get currentRibbonTab => RibbonTab.values.firstWhere(
+        (t) => t.name == activeTab,
+        orElse: () => RibbonTab.home,
+      );
 
   UiState copyWith({
     bool? isRibbonExpanded,
@@ -59,6 +66,10 @@ class UiCubit extends Cubit<UiState> {
 
   void setRibbonExpanded(bool expanded) {
     emit(state.copyWith(isRibbonExpanded: expanded));
+  }
+
+  void setRibbonTab(RibbonTab tab) {
+    switchTab(tab.name);
   }
 
   void switchTab(String tab) {

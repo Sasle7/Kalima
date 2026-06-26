@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
+import 'package:kalima/logic/bloc/document/document_state.dart';
+import 'package:kalima/logic/bloc/format/format_event.dart';
+import 'package:kalima/logic/cubit/ui_cubit.dart';
 
 /// Layout tab content within the ribbon toolbar.
 ///
@@ -27,9 +31,9 @@ class LayoutTab extends StatelessWidget {
                 label: 'حجم الصفحة',
                 value: doc?.pageSize ?? 'A4',
                 items: const ['A4', 'Letter', 'A5', 'A3', 'Legal'],
-                onChanged: (v) => context
-                    .read<DocumentBloc>()
-                    .add(SetPageSize(v!)),
+                onChanged: (v) {
+                  // TODO: SetPageSize
+                },
               ),
               _Separator(),
               // Orientation toggle
@@ -38,9 +42,9 @@ class LayoutTab extends StatelessWidget {
                     ? Icons.screen_rotation_alt
                     : Icons.portrait,
                 label: 'اتجاه',
-                onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const ToggleOrientation()),
+                onPressed: () {
+                  // TODO: ToggleOrientation
+                },
               ),
               _Separator(),
               // Margins
@@ -49,9 +53,9 @@ class LayoutTab extends StatelessWidget {
                 label: 'هوامش',
                 value: _marginLabel(doc?.marginPreset ?? 'normal'),
                 items: const ['Normal', 'Narrow', 'Wide', 'Custom'],
-                onChanged: (v) => context
-                    .read<DocumentBloc>()
-                    .add(SetMarginPreset(v!.toLowerCase())),
+                onChanged: (v) {
+                  // TODO: SetMarginPreset
+                },
               ),
               _Separator(),
               // Columns
@@ -60,18 +64,18 @@ class LayoutTab extends StatelessWidget {
                 label: 'أعمدة',
                 value: _columnsLabel(doc?.columnCount ?? 1),
                 items: const ['1', '2', '3'],
-                onChanged: (v) => context
-                    .read<DocumentBloc>()
-                    .add(SetColumnCount(int.parse(v!))),
+                onChanged: (v) {
+                  // TODO: SetColumnCount
+                },
               ),
               _Separator(),
               // Section break
               _LayoutButton(
                 icon: Icons.horizontal_rule,
                 label: 'فاصل مقطعي',
-                onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const InsertSectionBreak()),
+                onPressed: () {
+                  // TODO: InsertSectionBreak
+                },
               ),
               _Separator(),
               // Ruler toggle
@@ -80,9 +84,7 @@ class LayoutTab extends StatelessWidget {
                 label: 'مسطرة',
                 isToggle: true,
                 isActive: doc?.showRuler ?? true,
-                onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const ToggleRuler()),
+                onPressed: () => context.read<UiCubit>().toggleRuler(),
               ),
             ],
           ),

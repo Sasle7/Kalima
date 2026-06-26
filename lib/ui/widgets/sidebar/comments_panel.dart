@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
+import 'package:kalima/logic/bloc/document/document_state.dart';
 
 /// Comments panel displayed in the editor sidebar.
 ///
@@ -119,9 +120,7 @@ class _CommentsPanelState extends State<CommentsPanel> {
                           FilledButton(
                             onPressed: () {
                               if (_commentController.text.isNotEmpty) {
-                                context.read<DocumentBloc>().add(
-                                      AddComment(_commentController.text),
-                                    );
+                                // TODO: AddComment
                                 _commentController.clear();
                                 setState(() => _showInput = false);
                               }
@@ -177,15 +176,15 @@ class _CommentsPanelState extends State<CommentsPanel> {
                           final comment = comments[index];
                           return _CommentCard(
                             comment: comment,
-                            onResolve: () => context
-                                .read<DocumentBloc>()
-                                .add(ResolveComment(comment.id)),
-                            onDelete: () => context
-                                .read<DocumentBloc>()
-                                .add(DeleteComment(comment.id)),
-                            onReply: (text) => context
-                                .read<DocumentBloc>()
-                                .add(ReplyToComment(comment.id, text)),
+                            onResolve: () {
+                              // TODO: ResolveComment
+                            },
+                            onDelete: () {
+                              // TODO: DeleteComment
+                            },
+                            onReply: (text) {
+                              // TODO: ReplyToComment
+                            },
                           );
                         },
                       ),

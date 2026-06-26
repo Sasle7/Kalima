@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
+import 'package:kalima/logic/bloc/document/document_state.dart';
 import 'package:kalima/logic/bloc/editor/editor_bloc.dart';
+import 'package:kalima/logic/bloc/editor/editor_state.dart';
 import 'package:kalima/ui/widgets/canvas/page_view.dart';
 
 /// Document canvas widget.
@@ -86,26 +88,17 @@ class _DocumentCanvasState extends State<DocumentCanvas> {
       child: GestureDetector(
         onTapDown: (details) {
           context.read<EditorBloc>().add(
-                CursorPlaced(
-                  pageIndex: pageIndex,
-                  position: details.localPosition,
-                ),
+                const CursorMoved(0), // TODO: convert localPosition to text index
               );
         },
         onLongPressStart: (details) {
           context.read<EditorBloc>().add(
-                SelectionStarted(
-                  pageIndex: pageIndex,
-                  position: details.localPosition,
-                ),
+                const SelectText(0, 0), // TODO: convert localPosition to text index
               );
         },
         onDoubleTapDown: (details) {
           context.read<EditorBloc>().add(
-                WordSelected(
-                  pageIndex: pageIndex,
-                  position: details.localPosition,
-                ),
+                const SelectText(0, 0), // TODO: convert localPosition to text index
               );
         },
         child: Container(

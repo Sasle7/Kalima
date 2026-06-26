@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
+import 'package:kalima/logic/bloc/document/document_state.dart';
 import 'package:kalima/logic/cubit/ui_cubit.dart';
 import 'package:kalima/ui/adapters/keyboard_shortcuts.dart';
 import 'package:kalima/ui/adapters/mouse_handler.dart';

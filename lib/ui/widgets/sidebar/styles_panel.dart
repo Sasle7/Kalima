@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/format/format_bloc.dart';
+import 'package:kalima/logic/bloc/format/format_state.dart';
 
 /// Styles panel displayed in the editor sidebar.
 ///
@@ -50,7 +51,7 @@ class StylesPanel extends StatelessWidget {
                   separatorBuilder: (_, __) => const SizedBox(height: 8),
                   itemBuilder: (context, index) {
                     final style = styles[index];
-                    final isActive = state.styleName == style.name;
+                    final isActive = state.activeStyle == style.name;
 
                     return _StyleCard(
                       style: style,

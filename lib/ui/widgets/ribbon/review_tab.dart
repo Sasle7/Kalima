@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
+import 'package:kalima/logic/bloc/document/document_state.dart';
+import 'package:kalima/logic/cubit/ui_cubit.dart';
 
 /// Review tab content within the ribbon toolbar.
 ///
@@ -26,9 +29,9 @@ class ReviewTab extends StatelessWidget {
                 label: 'تدقيق إملائي',
                 isToggle: true,
                 isActive: doc?.spellCheckEnabled ?? false,
-                onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const ToggleSpellCheck()),
+                onPressed: () {
+                  // TODO: ToggleSpellCheck
+                },
               ),
               _Separator(),
               _ReviewButton(
@@ -36,9 +39,9 @@ class ReviewTab extends StatelessWidget {
                 label: 'تتبع التغييرات',
                 isToggle: true,
                 isActive: doc?.trackChanges ?? false,
-                onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const ToggleTrackChanges()),
+                onPressed: () {
+                  // TODO: ToggleTrackChanges
+                },
               ),
               _Separator(),
               _ReviewButton(
@@ -47,38 +50,38 @@ class ReviewTab extends StatelessWidget {
                 isToggle: true,
                 isActive: doc?.showComments ?? false,
                 onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const ToggleCommentsPanel()),
+                    .read<UiCubit>()
+                    .toggleSidebar(SidebarType.comments),
               ),
               _Separator(),
               _ReviewButton(
                 icon: Icons.check_circle_outline,
                 label: 'قبول',
-                onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const AcceptChange()),
+                onPressed: () {
+                  // TODO: AcceptChange
+                },
               ),
               _ReviewButton(
                 icon: Icons.cancel_outlined,
                 label: 'رفض',
-                onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const RejectChange()),
+                onPressed: () {
+                  // TODO: RejectChange
+                },
               ),
               _Separator(),
               _ReviewButton(
                 icon: Icons.navigate_before,
                 label: 'سابق',
-                onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const PreviousChange()),
+                onPressed: () {
+                  // TODO: PreviousChange
+                },
               ),
               _ReviewButton(
                 icon: Icons.navigate_next,
                 label: 'تالي',
-                onPressed: () => context
-                    .read<DocumentBloc>()
-                    .add(const NextChange()),
+                onPressed: () {
+                  // TODO: NextChange
+                },
               ),
             ],
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/format/format_bloc.dart';
+import 'package:kalima/logic/bloc/format/format_event.dart';
+import 'package:kalima/logic/bloc/format/format_state.dart';
 
 /// Home tab content within the ribbon toolbar.
 ///
@@ -33,7 +35,7 @@ class HomeTab extends StatelessWidget {
                 ],
                 onChanged: (v) => context
                     .read<FormatBloc>()
-                    .add(SetFontFamily(v!)),
+                    .add(SetFont(v!)),
                 minWidth: 120,
               ),
               _Separator(),
@@ -56,7 +58,7 @@ class HomeTab extends StatelessWidget {
                 isActive: state.isBold ?? false,
                 tooltip: 'عريض',
                 onPressed: () =>
-                    context.read<FormatBloc>().add(const ToggleBold()),
+                    context.read<FormatBloc>().add(SetBold(!state.isBold)),
               ),
               // Italic
               _ToolButton(
@@ -64,7 +66,7 @@ class HomeTab extends StatelessWidget {
                 isActive: state.isItalic ?? false,
                 tooltip: 'مائل',
                 onPressed: () =>
-                    context.read<FormatBloc>().add(const ToggleItalic()),
+                    context.read<FormatBloc>().add(SetItalic(!state.isItalic)),
               ),
               // Underline
               _ToolButton(
@@ -72,7 +74,7 @@ class HomeTab extends StatelessWidget {
                 isActive: state.isUnderline ?? false,
                 tooltip: 'تسطير',
                 onPressed: () =>
-                    context.read<FormatBloc>().add(const ToggleUnderline()),
+                    context.read<FormatBloc>().add(SetUnderline(!state.isUnderline)),
               ),
               _Separator(),
               // Text color
@@ -80,7 +82,7 @@ class HomeTab extends StatelessWidget {
                 color: state.textColor ?? Colors.black,
                 tooltip: 'لون الخط',
                 onChanged: (c) =>
-                    context.read<FormatBloc>().add(SetTextColor(c)),
+                    context.read<FormatBloc>().add(SetColor(c)),
               ),
               // Highlight color
               _ColorButton(
@@ -88,41 +90,41 @@ class HomeTab extends StatelessWidget {
                 tooltip: 'تمييز',
                 isHighlight: true,
                 onChanged: (c) =>
-                    context.read<FormatBloc>().add(SetHighlightColor(c)),
+                    context.read<FormatBloc>().add(SetHighlight(c)),
               ),
               _Separator(),
               // Alignment buttons
               _ToolButton(
                 icon: Icons.format_align_right,
-                isActive: state.alignment == TextAlign.right,
+                isActive: state.alignment == TextAlignment.right,
                 tooltip: 'محاذاة لليمين',
                 onPressed: () => context
                     .read<FormatBloc>()
-                    .add(const SetAlignment(TextAlign.right)),
+                    .add(const SetAlignment(TextAlignment.right)),
               ),
               _ToolButton(
                 icon: Icons.format_align_center,
-                isActive: state.alignment == TextAlign.center,
+                isActive: state.alignment == TextAlignment.center,
                 tooltip: 'توسيط',
                 onPressed: () => context
                     .read<FormatBloc>()
-                    .add(const SetAlignment(TextAlign.center)),
+                    .add(const SetAlignment(TextAlignment.center)),
               ),
               _ToolButton(
                 icon: Icons.format_align_left,
-                isActive: state.alignment == TextAlign.left,
+                isActive: state.alignment == TextAlignment.left,
                 tooltip: 'محاذاة لليسار',
                 onPressed: () => context
                     .read<FormatBloc>()
-                    .add(const SetAlignment(TextAlign.left)),
+                    .add(const SetAlignment(TextAlignment.left)),
               ),
               _ToolButton(
                 icon: Icons.format_align_justify,
-                isActive: state.alignment == TextAlign.justify,
+                isActive: state.alignment == TextAlignment.justify,
                 tooltip: 'ضبط',
                 onPressed: () => context
                     .read<FormatBloc>()
-                    .add(const SetAlignment(TextAlign.justify)),
+                    .add(const SetAlignment(TextAlignment.justify)),
               ),
               _Separator(),
               // Line spacing
@@ -146,20 +148,20 @@ class HomeTab extends StatelessWidget {
               _ToolButton(
                 icon: Icons.format_list_bulleted,
                 tooltip: 'قائمة نقطية',
-                onPressed: () => context
-                    .read<FormatBloc>()
-                    .add(const ToggleBulletList()),
+                onPressed: () {
+                    // TODO: Add ToggleBulletList event
+                  },
               ),
               _ToolButton(
                 icon: Icons.format_list_numbered,
                 tooltip: 'قائمة مرقمة',
-                onPressed: () => context
-                    .read<FormatBloc>()
-                    .add(const ToggleNumberedList()),
+                onPressed: () {
+                    // TODO: Add ToggleNumberedList event
+                  },
               ),
               _Separator(),
               // Style gallery
-              _StyleGallery(currentStyle: state.styleName),
+              _StyleGallery(currentStyle: state.activeStyle),
             ],
           ),
         );

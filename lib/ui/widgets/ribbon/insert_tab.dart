@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
 import 'package:kalima/ui/widgets/dialogs/table_dialog.dart';
 
@@ -28,7 +29,7 @@ class InsertTab extends StatelessWidget {
             icon: Icons.image_outlined,
             label: 'صورة',
             onPressed: () {
-              context.read<DocumentBloc>().add(const InsertImageRequested());
+              // TODO: InsertImageRequested
             },
           ),
           _Separator(),
@@ -39,23 +40,19 @@ class InsertTab extends StatelessWidget {
           ),
           _Separator(),
           _InsertButton(
-            icon: Icons.header,
+            icon: Icons.title,
             label: 'رأس الصفحة',
             isToggle: true,
             onPressed: () {
-              context
-                  .read<DocumentBloc>()
-                  .add(const ToggleHeaderFooter('header'));
+              // TODO: ToggleHeaderFooter
             },
           ),
           _InsertButton(
-            icon: Icons.footer,
+            icon: Icons.text_snippet,
             label: 'تذييل الصفحة',
             isToggle: true,
             onPressed: () {
-              context
-                  .read<DocumentBloc>()
-                  .add(const ToggleHeaderFooter('footer'));
+              // TODO: ToggleHeaderFooter
             },
           ),
           _Separator(),
@@ -63,9 +60,7 @@ class InsertTab extends StatelessWidget {
             icon: Icons.looks_one,
             label: 'رقم الصفحة',
             onPressed: () {
-              context
-                  .read<DocumentBloc>()
-                  .add(const InsertPageNumber());
+              // TODO: InsertPageNumber
             },
           ),
           _Separator(),
@@ -73,7 +68,7 @@ class InsertTab extends StatelessWidget {
             icon: Icons.text_fields,
             label: 'مربع نص',
             onPressed: () {
-              context.read<DocumentBloc>().add(const InsertTextBox());
+              // TODO: InsertTextBox
             },
           ),
         ],
@@ -215,9 +210,7 @@ class _ShapeOption extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
-        context
-            .read<DocumentBloc>()
-            .add(InsertShape(label));
+        // TODO: InsertShape
       },
       child: Container(
         width: 80,
