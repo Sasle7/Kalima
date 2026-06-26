@@ -40,8 +40,8 @@ class _DocumentCanvasState extends State<DocumentCanvas> {
         return BlocBuilder<DocumentBloc, DocumentState>(
           builder: (context, docState) {
             final doc = docState is DocumentLoaded ? docState.document : null;
-            final pages = doc?.pages ?? [1]; // Default to 1 page
-            final zoom = doc?.zoomLevel ?? 1.0;
+            final pages = [1]; // TODO: get from doc.pages
+            final zoom = 1.0; // TODO: get from doc.zoomLevel
 
             return Focus(
               focusNode: _focusNode,

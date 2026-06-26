@@ -67,7 +67,7 @@ class StylusHandler extends StatelessWidget {
                   child: IgnorePointer(
                     child: CustomPaint(
                       painter: _StylusAnnotationPainter(
-                        strokes: state.annotationStrokes ?? [],
+                        strokes: const <List<_StylusPoint>>[], // TODO: get from state.annotationStrokes
                       ),
                     ),
                   ),

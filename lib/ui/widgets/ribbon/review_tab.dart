@@ -28,7 +28,7 @@ class ReviewTab extends StatelessWidget {
                 icon: Icons.spellcheck,
                 label: 'تدقيق إملائي',
                 isToggle: true,
-                isActive: doc?.spellCheckEnabled ?? false,
+                isActive: false, // TODO: get from doc.spellCheckEnabled
                 onPressed: () {
                   // TODO: ToggleSpellCheck
                 },
@@ -38,7 +38,7 @@ class ReviewTab extends StatelessWidget {
                 icon: Icons.track_changes,
                 label: 'تتبع التغييرات',
                 isToggle: true,
-                isActive: doc?.trackChanges ?? false,
+                isActive: false, // TODO: get from doc.trackChanges
                 onPressed: () {
                   // TODO: ToggleTrackChanges
                 },
@@ -48,7 +48,7 @@ class ReviewTab extends StatelessWidget {
                 icon: Icons.comment_outlined,
                 label: 'تعليقات',
                 isToggle: true,
-                isActive: doc?.showComments ?? false,
+                isActive: context.read<UiCubit>().state.showSidebar, // TODO: was doc?.showComments
                 onPressed: () => context
                     .read<UiCubit>()
                     .toggleSidebar(SidebarType.comments),

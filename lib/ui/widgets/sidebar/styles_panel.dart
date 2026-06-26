@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/format/format_bloc.dart';
+import 'package:kalima/logic/bloc/format/format_event.dart';
 import 'package:kalima/logic/bloc/format/format_state.dart';
 
 /// Styles panel displayed in the editor sidebar.

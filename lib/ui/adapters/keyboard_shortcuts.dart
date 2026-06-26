@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalima/logic/bloc/document/document_bloc.dart';
 import 'package:kalima/logic/bloc/editor/editor_bloc.dart';
 import 'package:kalima/logic/bloc/format/format_bloc.dart';
+import 'package:kalima/logic/bloc/format/format_event.dart';
 
 /// Keyboard shortcut handler wrapper widget.
 ///

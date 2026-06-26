@@ -29,7 +29,7 @@ class LayoutTab extends StatelessWidget {
               _LayoutDropdown(
                 icon: Icons.article_outlined,
                 label: 'حجم الصفحة',
-                value: doc?.pageSize ?? 'A4',
+                value: 'A4', // TODO: get from doc.pageSize
                 items: const ['A4', 'Letter', 'A5', 'A3', 'Legal'],
                 onChanged: (v) {
                   // TODO: SetPageSize
@@ -38,7 +38,7 @@ class LayoutTab extends StatelessWidget {
               _Separator(),
               // Orientation toggle
               _LayoutButton(
-                icon: doc?.isLandscape ?? false
+                icon: false // TODO: get from doc.isLandscape
                     ? Icons.screen_rotation_alt
                     : Icons.portrait,
                 label: 'اتجاه',
@@ -51,7 +51,7 @@ class LayoutTab extends StatelessWidget {
               _LayoutDropdown(
                 icon: Icons.margin,
                 label: 'هوامش',
-                value: _marginLabel(doc?.marginPreset ?? 'normal'),
+                value: _marginLabel('normal'), // TODO: get from doc.marginPreset
                 items: const ['Normal', 'Narrow', 'Wide', 'Custom'],
                 onChanged: (v) {
                   // TODO: SetMarginPreset
@@ -62,7 +62,7 @@ class LayoutTab extends StatelessWidget {
               _LayoutDropdown(
                 icon: Icons.view_column_outlined,
                 label: 'أعمدة',
-                value: _columnsLabel(doc?.columnCount ?? 1),
+                value: _columnsLabel(1), // TODO: get from doc.columnCount
                 items: const ['1', '2', '3'],
                 onChanged: (v) {
                   // TODO: SetColumnCount
@@ -83,7 +83,7 @@ class LayoutTab extends StatelessWidget {
                 icon: Icons.straighten,
                 label: 'مسطرة',
                 isToggle: true,
-                isActive: doc?.showRuler ?? true,
+                isActive: context.read<UiCubit>().state.showRuler, // TODO: was doc?.showRuler
                 onPressed: () => context.read<UiCubit>().toggleRuler(),
               ),
             ],

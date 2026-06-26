@@ -80,7 +80,7 @@ class RibbonBar extends StatelessWidget {
                 ),
               ),
               // Tab content
-              _buildTabContent(state.currentRibbonTab),
+              _buildTabContent(state.currentRibbonTab ?? RibbonTab.home),
             ],
           ),
         );

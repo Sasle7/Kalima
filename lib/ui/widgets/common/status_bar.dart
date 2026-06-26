@@ -14,11 +14,11 @@ class StatusBar extends StatelessWidget {
     return BlocBuilder<DocumentBloc, DocumentState>(
       builder: (context, state) {
         final doc = state is DocumentLoaded ? state.document : null;
-        final wordCount = doc?.stats?.wordCount ?? 0;
-        final charCount = doc?.stats?.charCount ?? 0;
-        final currentPage = doc?.currentPage ?? 1;
-        final totalPages = doc?.totalPages ?? 1;
-        final zoom = doc?.zoomLevel ?? 1.0;
+        final wordCount = 0; // TODO: get from doc.stats
+        final charCount = 0; // TODO: get from doc.stats
+        final currentPage = 1; // TODO: get from doc.currentPage
+        final totalPages = 1; // TODO: get from doc.totalPages
+        final zoom = 1.0; // TODO: get from doc.zoomLevel
 
         return Container(
           height: 36,

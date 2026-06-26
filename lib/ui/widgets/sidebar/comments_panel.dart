@@ -29,7 +29,7 @@ class _CommentsPanelState extends State<CommentsPanel> {
     return BlocBuilder<DocumentBloc, DocumentState>(
       builder: (context, state) {
         final doc = state is DocumentLoaded ? state.document : null;
-        final comments = doc?.comments ?? [];
+        final comments = <Map<String, dynamic>>[]; // TODO: get from doc.comments
 
         return Container(
           width: 300,

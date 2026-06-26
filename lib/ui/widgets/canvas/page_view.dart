@@ -29,9 +29,7 @@ class DocumentPageView extends StatelessWidget {
     return BlocBuilder<DocumentBloc, DocumentState>(
       builder: (context, docState) {
         final doc = docState is DocumentLoaded ? docState.document : null;
-        final pageData = doc?.pages != null && pageIndex < doc!.pages.length
-            ? doc.pages[pageIndex]
-            : null;
+        final pageData = null; // TODO: get from doc.pages[pageIndex]
 
         return BlocBuilder<EditorBloc, EditorState>(
           builder: (context, editorState) {
