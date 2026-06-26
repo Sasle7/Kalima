@@ -53,6 +53,10 @@ jobs:
           if [ ! -d "android" ]; then
             flutter create --platforms android .
           fi
+          # Update compileSdk to 36 for AGP compatibility
+          sed -i 's/compileSdk = [0-9]*/compileSdk = 36/' android/app/build.gradle.kts
+          # Also update targetSdk
+          sed -i 's/targetSdk = [0-9]*/targetSdk = 36/' android/app/build.gradle.kts
 
       - name: Get dependencies
         run: flutter pub get
