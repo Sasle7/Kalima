@@ -129,7 +129,7 @@ class _TableInsertDialogState extends State<TableInsertDialog> {
         ),
         FilledButton(
           style: FilledButton.styleFrom(
-            backgroundColor: const Color(0xFFE5B143),
+            backgroundColor: const Color(0xFF0860CD),
             foregroundColor: const Color(0xFF1A1A2E),
           ),
           onPressed: () {
@@ -161,12 +161,12 @@ class _GridCell extends StatelessWidget {
       margin: const EdgeInsets.all(1.5),
       decoration: BoxDecoration(
         color: isHighlighted
-            ? const Color(0xFFE5B143).withValues(alpha: 0.3)
+            ? const Color(0xFF0860CD).withValues(alpha: 0.3)
             : Colors.grey.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(2),
         border: Border.all(
           color: isHighlighted
-              ? const Color(0xFFE5B143)
+              ? const Color(0xFF0860CD)
               : Colors.grey.withValues(alpha: 0.3),
           width: isHighlighted ? 1.5 : 0.5,
         ),

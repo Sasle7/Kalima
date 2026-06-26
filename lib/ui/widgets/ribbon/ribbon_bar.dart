@@ -127,7 +127,7 @@ class _RibbonTab extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: isSelected ? const Color(0xFFE5B143) : Colors.transparent,
+              color: isSelected ? const Color(0xFF0860CD) : Colors.transparent,
               width: 2.5,
             ),
           ),
@@ -139,7 +139,7 @@ class _RibbonTab extends StatelessWidget {
               icon,
               size: 20,
               color: isSelected
-                  ? const Color(0xFFE5B143)
+                  ? const Color(0xFF0860CD)
                   : const Color(0xFF1A1A2E).withValues(alpha: 0.6),
             ),
             if (showLabel) ...[
@@ -151,7 +151,7 @@ class _RibbonTab extends StatelessWidget {
                   fontSize: 13,
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   color: isSelected
-                      ? const Color(0xFFE5B143)
+                      ? const Color(0xFF0860CD)
                       : const Color(0xFF1A1A2E).withValues(alpha: 0.7),
                 ),
               ),

@@ -16,22 +16,25 @@ class AppTheme {
   static const Color textSecondary = Color(0xFF5F6368);
   static const Color textHint = Color(0xFF9AA0A6);
 
+  // Accent color from app logo
+  static const Color accentBlue = Color(0xFF0860CD);
+
   // UI element colors
   static const Color dividerColor = Color(0xFFDADCE0);
   static const Color borderColor = Color(0xFFC4C7C9);
   static const Color hoverColor = Color(0xFFE8EAED);
   static const Color selectedColor = Color(0xFFD3E3FD);
-  static const Color focusColor = Color(0xFF1A73E8);
+  static const Color focusColor = accentBlue;
   static const Color iconColor = Color(0xFF5F6368);
-  static const Color iconActiveColor = Color(0xFF1A73E8);
+  static const Color iconActiveColor = accentBlue;
 
   // Ribbon tab colors
-  static const Color ribbonTabActive = Color(0xFF1A73E8);
+  static const Color ribbonTabActive = accentBlue;
   static const Color ribbonTabInactive = Color(0xFF5F6368);
 
   // Ruler colors
   static const Color rulerTickColor = Color(0xFF9AA0A6);
-  static const Color rulerIndicatorColor = Color(0xFF1A73E8);
+  static const Color rulerIndicatorColor = accentBlue;
 
   // Semantic colors
   static const Color success = Color(0xFF34A853);
@@ -58,7 +61,7 @@ class AppTheme {
       primaryColor: focusColor,
 
       colorScheme: const ColorScheme.light(
-        primary: Color(0xFF1A73E8),
+        primary: accentBlue,
         onPrimary: Colors.white,
         primaryContainer: Color(0xFFD3E3FD),
         onPrimaryContainer: Color(0xFF041E49),

@@ -215,12 +215,12 @@ class _StyleCard extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: isActive
-              ? const Color(0xFFE5B143).withValues(alpha: 0.1)
+              ? const Color(0xFF0860CD).withValues(alpha: 0.1)
               : const Color(0xFFF5F5F7),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: isActive
-                ? const Color(0xFFE5B143).withValues(alpha: 0.4)
+                ? const Color(0xFF0860CD).withValues(alpha: 0.4)
                 : Colors.grey.withValues(alpha: 0.15),
             width: isActive ? 1.5 : 1.0,
           ),
@@ -259,12 +259,12 @@ class _StyleCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(
                   color: isActive
-                      ? const Color(0xFFE5B143)
+                      ? const Color(0xFF0860CD)
                       : const Color(0xFF1A1A2E).withValues(alpha: 0.2),
                 ),
               ),
               child: isActive
-                  ? const Icon(Icons.check, size: 16, color: Color(0xFFE5B143))
+                  ? const Icon(Icons.check, size: 16, color: Color(0xFF0860CD))
                   : null,
             ),
           ],

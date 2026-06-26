@@ -176,7 +176,7 @@ class _FindReplaceDialogState extends State<FindReplaceDialog> {
                   child: FilledButton(
                     onPressed: _findNext,
                     style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFFE5B143),
+                      backgroundColor: const Color(0xFF0860CD),
                       foregroundColor: const Color(0xFF1A1A2E),
                     ),
                     child: const Text(

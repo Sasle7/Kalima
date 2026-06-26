@@ -147,7 +147,7 @@ class _RulerWidgetState extends State<RulerWidget> {
                   child: CustomPaint(
                     size: const Size(_markerWidth, _markerHeight),
                     painter: _MarginMarkerPainter(
-                      color: const Color(0xFFE5B143),
+                      color: const Color(0xFF0860CD),
                       direction: _MarkerDirection.top,
                     ),
                   ),

@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
             child: FilledButton.icon(
               onPressed: () => _showNewDocumentDialog(context),
               style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFFE5B143),
+                backgroundColor: const Color(0xFF0860CD),
                 foregroundColor: const Color(0xFF1A1A2E),
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -145,13 +145,13 @@ class HomeScreen extends StatelessWidget {
               width: 200,
               height: 200,
               decoration: BoxDecoration(
-                color: const Color(0xFFE5B143).withValues(alpha: 0.1),
+                color: const Color(0xFF0860CD).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(100),
               ),
               child: const Icon(
                 Icons.edit_note_rounded,
                 size: 100,
-                color: Color(0xFFE5B143),
+                color: Color(0xFF0860CD),
               ),
             ),
             const SizedBox(height: 32),
@@ -178,7 +178,7 @@ class HomeScreen extends StatelessWidget {
             FilledButton.icon(
               onPressed: () => _showNewDocumentDialog(context),
               style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFFE5B143),
+                backgroundColor: const Color(0xFF0860CD),
                 foregroundColor: const Color(0xFF1A1A2E),
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -231,7 +231,7 @@ class HomeScreen extends StatelessWidget {
                   fontFamily: 'Amiri',
                   fontSize: 28,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFFE5B143),
+                  color: Color(0xFF0860CD),
                 ),
               ),
               SizedBox(height: 8),

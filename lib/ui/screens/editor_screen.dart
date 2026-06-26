@@ -129,7 +129,7 @@ class _SidebarToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: isActive
-          ? const Color(0xFFE5B143)
+          ? const Color(0xFF0860CD)
           : Colors.white,
       borderRadius: BorderRadius.circular(8),
       elevation: isActive ? 3 : 1,

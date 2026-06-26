@@ -229,7 +229,7 @@ class _SelectionPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = const Color(0xFFE5B143).withValues(alpha: 0.3)
+      ..color = const Color(0xFF0860CD).withValues(alpha: 0.3)
       ..style = PaintingStyle.fill;
 
     final rect = Rect.fromPoints(start, end);

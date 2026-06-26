@@ -132,7 +132,7 @@ class _LayoutButton extends StatelessWidget {
         message: label,
         child: Material(
           color: isActive
-              ? const Color(0xFFE5B143).withValues(alpha: 0.15)
+              ? const Color(0xFF0860CD).withValues(alpha: 0.15)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(6),
           child: InkWell(
@@ -149,7 +149,7 @@ class _LayoutButton extends StatelessWidget {
                     icon,
                     size: 20,
                     color: isActive
-                        ? const Color(0xFFE5B143)
+                        ? const Color(0xFF0860CD)
                         : const Color(0xFF1A1A2E).withValues(alpha: 0.7),
                   ),
                   const SizedBox(height: 2),
@@ -159,7 +159,7 @@ class _LayoutButton extends StatelessWidget {
                       fontFamily: 'Cairo',
                       fontSize: 9,
                       color: isActive
-                          ? const Color(0xFFE5B143)
+                          ? const Color(0xFF0860CD)
                           : const Color(0xFF1A1A2E).withValues(alpha: 0.6),
                     ),
                     maxLines: 1,

@@ -199,7 +199,7 @@ class _ToolButton extends StatelessWidget {
         message: tooltip,
         child: Material(
           color: isActive
-              ? const Color(0xFFE5B143).withValues(alpha: 0.15)
+              ? const Color(0xFF0860CD).withValues(alpha: 0.15)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(6),
           child: InkWell(
@@ -213,7 +213,7 @@ class _ToolButton extends StatelessWidget {
                 icon,
                 size: 20,
                 color: isActive
-                    ? const Color(0xFFE5B143)
+                    ? const Color(0xFF0860CD)
                     : const Color(0xFF1A1A2E).withValues(alpha: 0.7),
               ),
             ),
@@ -418,12 +418,12 @@ class _StyleGallery extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color(0xFFE5B143).withValues(alpha: 0.12)
+                    ? const Color(0xFF0860CD).withValues(alpha: 0.12)
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(6),
                 border: isSelected
                     ? Border.all(
-                        color: const Color(0xFFE5B143).withValues(alpha: 0.4))
+                        color: const Color(0xFF0860CD).withValues(alpha: 0.4))
                     : null,
               ),
               child: Column(

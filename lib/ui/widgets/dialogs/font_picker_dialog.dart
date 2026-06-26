@@ -158,11 +158,11 @@ class _FontPickerDialogState extends State<FontPickerDialog> {
                         ),
                       ),
                       backgroundColor: isSelected
-                          ? const Color(0xFFE5B143).withValues(alpha: 0.15)
+                          ? const Color(0xFF0860CD).withValues(alpha: 0.15)
                           : Colors.grey.withValues(alpha: 0.08),
                       side: isSelected
                           ? const BorderSide(
-                              color: Color(0xFFE5B143), width: 1)
+                              color: Color(0xFF0860CD), width: 1)
                           : BorderSide.none,
                       onPressed: () {
                         widget.onFontSelected(name);
@@ -224,7 +224,7 @@ class _FontPickerDialogState extends State<FontPickerDialog> {
                             if (isSelected)
                               const Icon(
                                 Icons.check_circle,
-                                color: Color(0xFFE5B143),
+                                color: Color(0xFF0860CD),
                                 size: 22,
                               ),
                           ],

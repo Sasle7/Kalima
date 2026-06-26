@@ -127,7 +127,7 @@ class _CommentsPanelState extends State<CommentsPanel> {
                               }
                             },
                             style: FilledButton.styleFrom(
-                              backgroundColor: const Color(0xFFE5B143),
+                              backgroundColor: const Color(0xFF0860CD),
                               foregroundColor: const Color(0xFF1A1A2E),
                             ),
                             child: const Text(
@@ -273,7 +273,7 @@ class _CommentCardState extends State<_CommentCard> {
                   children: [
                     CircleAvatar(
                       radius: 12,
-                      backgroundColor: const Color(0xFFE5B143),
+                      backgroundColor: const Color(0xFF0860CD),
                       child: Text(
                         (comment.author ?? '?').substring(0, 1).toUpperCase(),
                         style: const TextStyle(
@@ -349,7 +349,7 @@ class _CommentCardState extends State<_CommentCard> {
                         style: TextStyle(
                           fontFamily: 'Cairo',
                           fontSize: 11,
-                          color: const Color(0xFFE5B143),
+                          color: const Color(0xFF0860CD),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -466,7 +466,7 @@ class _CommentCardState extends State<_CommentCard> {
                   const SizedBox(width: 4),
                   IconButton(
                     icon: const Icon(Icons.send, size: 16),
-                    color: const Color(0xFFE5B143),
+                    color: const Color(0xFF0860CD),
                     onPressed: () {
                       if (_replyController.text.isNotEmpty) {
                         widget.onReply(_replyController.text);
