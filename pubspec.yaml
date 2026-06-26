@@ -1,0 +1,80 @@
+name: kalima
+description: "معالج نصوص متقدم للأجهزة اللوحية - Advanced Word Processor for Tablets"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.2.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_bloc: ^8.1.5
+  equatable: ^2.0.5
+
+  # Local Storage
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.2
+
+  # File Handling
+  archive: ^3.6.1
+  xml: ^6.5.0
+  file_picker: ^8.0.0
+
+  # PDF Export
+  pdf: ^3.10.8
+  printing: ^5.12.0
+
+  # Intl & Localization
+  intl: ^0.19.0
+  flutter_localizations:
+    sdk: flutter
+
+  # Utilities
+  uuid: ^4.3.3
+  collection: ^1.18.0
+  meta: ^1.11.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.2
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.8
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/fonts/
+    - assets/icons/
+    - assets/images/
+
+  fonts:
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/Amiri/Amiri-Regular.ttf
+        - asset: assets/fonts/Amiri/Amiri-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Amiri/Amiri-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Amiri/Amiri-BoldItalic.ttf
+          weight: 700
+          style: italic
+
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo/Cairo-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Cairo/Cairo-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Cairo/Cairo-Light.ttf
+          weight: 300
+
+    - family: TraditionalArabic
+      fonts:
+        - asset: assets/fonts/TraditionalArabic.ttf

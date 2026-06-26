@@ -1,0 +1,29 @@
+# Flutter
+.dart_tool/
+.packages
+.pub/
+build/
+*.iml
+.idea/
+.vscode/
+*.lock
+
+# Local storage
+*.isar
+*.isar.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Generated files
+*.g.dart
+*.freezed.dart
+
+# Environment
+.env
+.env.local
+
+# Temporary files
+*.tmp
+temp/
