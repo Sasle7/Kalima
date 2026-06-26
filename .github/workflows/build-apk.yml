@@ -60,8 +60,9 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Fix isar_flutter_libs for AGP 8+
+      - name: Patch plugin build.gradle files for AGP 8+
         run: |
+          # Fix isar_flutter_libs: add namespace for AGP 8+
           ISAR_DIR="$PUB_CACHE/hosted/pub.dev/isar_flutter_libs-3.1.0+1"
           MANIFEST="$ISAR_DIR/android/src/main/AndroidManifest.xml"
           BUILD_GRADLE="$ISAR_DIR/android/build.gradle"
@@ -73,6 +74,25 @@ jobs:
             echo "Removing package attr from isar_flutter_libs AndroidManifest.xml..."
             sed -i 's/package="dev.isar.isar_flutter_libs"//' "$MANIFEST"
           fi
+
+          # Fix file_picker: bump compileSdk to 36 (flutter_plugin_android_lifecycle requires 36)
+          FILE_PICKER_DIR="$PUB_CACHE/hosted/pub.dev/file_picker-8.3.7"
+          FP_BUILD_GRADLE="$FILE_PICKER_DIR/android/build.gradle"
+          if [ -f "$FP_BUILD_GRADLE" ]; then
+            echo "Patching file_picker build.gradle compileSdk -> 36..."
+            sed -i 's/compileSdkVersion 34/compileSdkVersion 36/' "$FP_BUILD_GRADLE"
+            sed -i 's/compileSdk = 34/compileSdk = 36/' "$FP_BUILD_GRADLE"
+            sed -i 's/compileSdk 34/compileSdk 36/' "$FP_BUILD_GRADLE"
+            grep -n "compileSdk" "$FP_BUILD_GRADLE"
+          else
+            echo "Warning: file_picker build.gradle not found at $FP_BUILD_GRADLE"
+            ls "$FILE_PICKER_DIR/android/" 2>/dev/null || echo "No android dir found"
+          fi
+
+          # Add android.disableAarMetadata=true as safety net
+          echo "android.disableAarMetadata=true" >> android/gradle.properties
+          echo "gradle.properties now has:"
+          grep -i "aar\|compile\|target" android/gradle.properties
 
       - name: Analyze
         run: flutter analyze
