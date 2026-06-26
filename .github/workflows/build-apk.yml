@@ -53,17 +53,47 @@ jobs:
           if [ ! -d "android" ]; then
             flutter create --platforms android .
           fi
-          # Fix compileSdk, targetSdk and ndkVersion for AGP/plugin compatibility
-          echo "Patching android/app/build.gradle.kts for SDK versions..."
-          awk '{
-            gsub(/compileSdk = flutter.compileSdkVersion/, "compileSdk = 36");
-            gsub(/targetSdk = flutter.targetSdkVersion/, "targetSdk = 36");
-            gsub(/ndkVersion = flutter.ndkVersion/, "ndkVersion = \"28.2.13676358\"");
-            print
-          }' android/app/build.gradle.kts > android/app/build.gradle.kts.tmp
-          mv android/app/build.gradle.kts.tmp android/app/build.gradle.kts
-          echo "Patched file content:"
-          head -30 android/app/build.gradle.kts
+          # Override android/app/build.gradle.kts with correct SDK versions
+          cat > android/app/build.gradle.kts << 'KTS'
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("dev.flutter.flutter-gradle-plugin")
+}
+
+android {
+    namespace = "com.kalima.app"
+    compileSdk = 36
+    ndkVersion = "28.2.13676358"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
+    defaultConfig {
+        applicationId = "com.kalima.app"
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+}
+
+flutter {
+    source = ".."
+}
+KTS
+          echo "Build.gradle.kts written successfully"
 
       - name: Get dependencies
         run: flutter pub get
